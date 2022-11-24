@@ -9,21 +9,21 @@ export default function HomeView() {
     const {jobVacancies} = useSelector(state => state.jobVacancyReducer);
 
     useEffect(() => {
-        dispatch(allJobVacancies());
+        if (jobVacancies.length === 0) {
+            dispatch(allJobVacancies())
+        }
     }, [])
 
     return (
-        <div>
+        <div className={"overflow-hidden"}>
             <NavBar/>
-            <div className={"px-10"}>
-                <h1 className={"font-bold text-2xl mx-6"}>Lowongan Pekerjaan :</h1>
-                <div className={"flex flex-row flex-wrap items-center justify-center"}>
-                    {
-                        jobVacancies.map((jobVacancy, index) => {
-                            return <JobVacancyCard key={index} jobVacancy={jobVacancy}/>
-                        })
-                    }
-                </div>
+            <h1 className={"font-bold text-2xl ml-16"}>Lowongan Pekerjaan :</h1>
+            <div className={"flex flex-row flex-wrap items-center justify-center mb-20"}>
+                {
+                    jobVacancies.map((jobVacancy, index) => {
+                        return <JobVacancyCard key={index} jobVacancy={jobVacancy}/>
+                    })
+                }
             </div>
         </div>
     );
