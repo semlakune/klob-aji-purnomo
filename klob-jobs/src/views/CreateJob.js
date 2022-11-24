@@ -3,6 +3,7 @@ import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import {createJobVacancy} from "../store/actions/actionJobVacancy";
+import { ToastContainer, toast } from 'react-toastify';
 
 export default function CreateJob() {
     const navigate = useNavigate();
@@ -23,8 +24,22 @@ export default function CreateJob() {
 
     const createJobHandler = (e) => {
         e.preventDefault()
-        dispatch(createJobVacancy(jobVacancy))
-        navigate("/")
+        if (jobVacancy.corporateLogo === "") {
+            toast.error("Please enter corporate logo", {position: toast.POSITION.TOP_CENTER})
+        } else if (jobVacancy.corporateName === "") {
+            toast.error("Please enter corporate name", {position: toast.POSITION.TOP_CENTER})
+        } else if (jobVacancy.positionName === "") {
+            toast.error("Please enter position name", {position: toast.POSITION.TOP_CENTER})
+        } else if (jobVacancy.status === "") {
+            toast.error("Please enter status karyawan", {position: toast.POSITION.TOP_CENTER})
+        } else if (jobVacancy.salaryTo === "" || jobVacancy.salaryFrom === "") {
+            toast.error("Please enter salary range", {position: toast.POSITION.TOP_CENTER})
+        } else if (jobVacancy.postedDate === "") {
+            toast.error("Please enter posted date", {position: toast.POSITION.TOP_CENTER})
+        } else {
+            dispatch(createJobVacancy(jobVacancy))
+            navigate("/")
+        }
     }
 
     useEffect(() => {
@@ -83,6 +98,7 @@ export default function CreateJob() {
                     </form>
                 </div>
             </div>
+            <ToastContainer/>
         </div>
     )
 }
