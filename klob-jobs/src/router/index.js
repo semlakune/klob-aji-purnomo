@@ -2,6 +2,7 @@ import {createBrowserRouter} from "react-router-dom";
 import HomeView from "../views/HomeView";
 import CreateJob from "../views/CreateJob";
 import JobDetail from "../views/JobDetail";
+import SentJob from "../views/SentJob";
 
 const router = createBrowserRouter([
     {
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
     {
         path: "/detail-lowongan-perkerjaan/:jobVacancyCode",
         element: <JobDetail/>
+    },
+    {
+        path: "/lamaran-terkirim",
+        element: <SentJob/>
     }
 ]);
 

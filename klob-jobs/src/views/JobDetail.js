@@ -15,7 +15,7 @@ export default function JobDetail() {
     const rupiah = Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", });
 
     moment.locale('id');
-    const sinceDate = moment(job.postedDate).fromNow()
+    const sinceDate = moment(job?.postedDate).fromNow()
 
     useEffect(() => {
         dispatch(jobVacancyById(jobVacancyCode))
@@ -37,7 +37,7 @@ export default function JobDetail() {
                         <h1 className={"mb-5"}>Status: <span className={"bg-stone-500 w-max p-1 rounded-xl px-2 text-white"}>{job?.status}</span></h1>
                         <h1>Gaji: <span className={"bg-stone-500 w-max p-1 rounded-xl px-2 text-white"}>{rupiah.format(job?.salaryFrom)} - {rupiah.format(job?.salaryTo)}</span></h1>
                         <h1 className={"text-right"}>{sinceDate}</h1>
-                        <button className={"bg-green-800 text-white rounded-xl p-3 w-full mt-5 hover:bg-green-600"}>KIRIM LAMARAN</button>
+                        <button className={!job.applied ? "bg-green-800 text-white rounded-xl p-3 w-full mt-5 hover:bg-green-600" : "bg-blue-500 text-white rounded-xl p-3 w-full mt-5"} disabled={job.applied}>{!job.applied ? 'KIRIM LAMARAN' : 'LAMARAN TELAH DIKIRIM'}</button>
                     </div>
                 </div>
             </div>
