@@ -1,10 +1,10 @@
-import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import {updateJobVacancyById} from "../store/actions/actionJobVacancy";
+import {useDispatch} from "react-redux";
+import {allJobVacancies, updateJobVacancyById} from "../store/actions/actionJobVacancy";
 import moment from "moment";
 import 'moment/locale/id';
 
-export default function JobVacancyCard(props) {
+export default function AppliedJobCard(props) {
     const {jobVacancy} = props;
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -17,8 +17,8 @@ export default function JobVacancyCard(props) {
     }
     const updateJobHandler = (jobVacancyCode) => {
         dispatch(updateJobVacancyById(jobVacancyCode))
+        dispatch(allJobVacancies())
     }
-
     return (
         <div className={"w-96 rounded overflow-hidden shadow-lg m-5"}>
             <div className={"flex items-center justify-center p-10"}>
@@ -39,7 +39,7 @@ export default function JobVacancyCard(props) {
                     <button onClick={() => jobVacancyDetailHandler(jobVacancy.jobVacancyCode)} type={"button"} className={"text-blue-600 text-left"}>Baca Detail</button>
                     <h1 className={"text-right"}>{sinceDate}</h1>
                 </div>
-                <button onClick={() => updateJobHandler(jobVacancy.jobVacancyCode)} className={!jobVacancy.applied ? 'text-white bg-green-800 w-full p-2 rounded-xl mt-5 hover:bg-green-600' : 'text-white bg-stone-500 w-full p-2 rounded-xl mt-5'} disabled={jobVacancy.applied}>KIRIM LAMARAN</button>
+                <button onClick={() => updateJobHandler(jobVacancy.jobVacancyCode)} className={'text-black bg-yellow-400 w-full p-2 rounded-xl mt-5 hover:bg-yellow-500'}>BATALKAN LAMARAN</button>
             </div>
         </div>
     )

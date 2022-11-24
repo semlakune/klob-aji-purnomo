@@ -14,6 +14,9 @@ export default function NavBar() {
                         <li>
                             <button onClick={() => navigate("/buat-lowongan-pekerjaan")} type={"button"} className={"hover:text-blue-600"}>Buat Lowongan</button>
                         </li>
+                        <li>
+                            <button onClick={() => navigate("/lamaran-terkirim")} type={"button"} className={"hover:text-blue-600"}>Lamaran Terkirim</button>
+                        </li>
                     </ul>
                 </div>
             </div>

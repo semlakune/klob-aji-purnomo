@@ -13,6 +13,7 @@ export default function HomeView() {
             dispatch(allJobVacancies())
         }
     }, [])
+
     return (
         <div className={"overflow-hidden"}>
             <NavBar/>
