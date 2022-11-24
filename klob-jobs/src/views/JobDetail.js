@@ -3,13 +3,14 @@ import NavBar from "../components/NavBar";
 import parse from 'html-react-parser';
 import {useParams} from "react-router-dom";
 import {useEffect} from "react";
-import {jobVacancyById} from "../store/actions/actionJobVacancy";
+import {jobVacancyById, updateJobVacancyById} from "../store/actions/actionJobVacancy";
 import moment from "moment";
 import 'moment/locale/id';
 
 export default function JobDetail() {
     const { jobVacancyCode } = useParams()
     const dispatch = useDispatch();
+
     const { jobVacancy } = useSelector(state => state.jobVacancyReducer);
     const job = jobVacancy[0];
     const rupiah = Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", });
@@ -17,9 +18,16 @@ export default function JobDetail() {
     moment.locale('id');
     const sinceDate = moment(job?.postedDate).fromNow()
 
+    const updateJobHandler = (jobVacancyCode) => {
+        dispatch(updateJobVacancyById(jobVacancyCode))
+
+    }
+
     useEffect(() => {
         dispatch(jobVacancyById(jobVacancyCode))
     }, [])
+
+
     return (
         <div className={"overflow-hidden"}>
             <NavBar/>
@@ -37,7 +45,7 @@ export default function JobDetail() {
                         <h1 className={"mb-5"}>Status: <span className={"bg-stone-500 w-max p-1 rounded-xl px-2 text-white"}>{job?.status}</span></h1>
                         <h1>Gaji: <span className={"bg-stone-500 w-max p-1 rounded-xl px-2 text-white"}>{rupiah.format(job?.salaryFrom)} - {rupiah.format(job?.salaryTo)}</span></h1>
                         <h1 className={"text-right"}>{sinceDate}</h1>
-                        <button className={!job.applied ? "bg-green-800 text-white rounded-xl p-3 w-full mt-5 hover:bg-green-600" : "bg-blue-500 text-white rounded-xl p-3 w-full mt-5"} disabled={job.applied}>{!job.applied ? 'KIRIM LAMARAN' : 'LAMARAN TELAH DIKIRIM'}</button>
+                        <button onClick={() => updateJobHandler(job?.jobVacancyCode)} className={!job?.applied ? "bg-green-800 text-white rounded-xl p-3 w-full mt-5 hover:bg-green-600" : "bg-blue-500 text-white rounded-xl p-3 w-full mt-5"} disabled={job?.applied}>{!job?.applied ? 'KIRIM LAMARAN' : 'LAMARAN TELAH DIKIRIM'}</button>
                     </div>
                 </div>
             </div>
