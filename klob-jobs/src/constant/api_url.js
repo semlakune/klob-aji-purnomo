@@ -1,0 +1,1 @@
+export const API_URL = 'https://test-server-klob.herokuapp.com/fakeJob';
