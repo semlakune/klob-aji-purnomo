@@ -1,4 +1,4 @@
-import {JOB_VACANCY_ADD_JOB, JOB_VACANCY_FETCH_ALL} from "./actionType";
+import {JOB_VACANCY_ADD_JOB, JOB_VACANCY_FETCH_ALL, JOB_VACANCY_FETCH_BY_ID} from "./actionType";
 import {API_URL} from "../../constant/api_url";
 
 export const fetchAllJobVacancies = (payload) => {
@@ -7,6 +7,10 @@ export const fetchAllJobVacancies = (payload) => {
 
 export const addJobVacancy = (payload) => {
     return { type: JOB_VACANCY_ADD_JOB, payload }
+}
+
+export const fetchJobVacancyById = (payload) => {
+    return { type: JOB_VACANCY_FETCH_BY_ID, payload }
 }
 
 //-----------
@@ -29,5 +33,11 @@ export const allJobVacancies = () => {
 export const createJobVacancy = (jobVacancy) => {
     return (dispatch) => {
         dispatch(addJobVacancy(jobVacancy))
+    }
+}
+
+export const jobVacancyById = (id) => {
+    return (dispatch) => {
+        dispatch(fetchJobVacancyById(id))
     }
 }
